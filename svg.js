@@ -14,7 +14,7 @@ let state = {
   shaderTime: 0,
 };
 
-function init(state) {
+function init() {
   state.renderer = getRenderer(window, '#app');
   state.camera = getCamera(window.innerHeight, window.innerWidth);
   state.scene = new Scene();
@@ -35,15 +35,21 @@ function init(state) {
   state.composer.addPass(state.shaders.badTVPass);
 }
 
-function animate(state) {
+function animate() {
   state.shaderTime += 0.1;
-  state.shaders.badTVPass.uniforms[ 'time' ].value =  state.shaderTime;
-  // console.log(`tick ${shaderTime}`)
-  requestAnimationFrame(() => animate(state));
+  state.shaders.badTVPass.uniforms['time'].value =  state.shaderTime;
 
-  state.composer.render(0.1)
+  if(state.playing) {
+    state.composer.render(0.1)
+    requestAnimationFrame(() => animate(state));
+  }
 }
 
 init(state);
 animate(state);
 
+document.getElementById('app')
+  .addEventListener('click', () => {
+    state.playing = !state.playing
+    animate()
+  })
