@@ -704,6 +704,11 @@
   resolved "https://registry.yarnpkg.com/@iarna/toml/-/toml-2.2.3.tgz#f060bf6eaafae4d56a7dac618980838b0696e2ab"
   integrity sha512-FmuxfCuolpLl0AnQ2NHSzoUKWEJDFl63qXjzdoWBVyFCXzMGm1spBzk7LeHNoVCiWCF7mRVms9e6jEV9+MoPbg==
 
+"@johh/three-effectcomposer@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@johh/three-effectcomposer/-/three-effectcomposer-0.0.7.tgz#f0849d0094ea09696a04942b368e9f02df426c52"
+  integrity sha512-1eiEsxSBXfNoUyoprA8NtlP4ffE//EhKXtTH2F/FPzMnkYqPECAbx69RQSVDSs1unA/piE/jSrGg3B+pGM0r1w==
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -990,6 +995,10 @@ babylon-walk@^1.0.2:
     babel-runtime "^6.11.6"
     babel-types "^6.15.0"
     lodash.clone "^4.5.0"
+
+bad-tv-shader@felixturner/bad-tv-shader:
+  version "0.0.0"
+  resolved "https://codeload.github.com/felixturner/bad-tv-shader/tar.gz/6454e3e2b6338c43c4d0884b6fd71dfd55a64151"
 
 balanced-match@^1.0.0:
   version "1.0.0"
@@ -4810,6 +4819,11 @@ terser@^3.16.1, terser@^3.7.3:
     commander "^2.19.0"
     source-map "~0.6.1"
     source-map-support "~0.5.10"
+
+three@>=0.102.0:
+  version "0.106.2"
+  resolved "https://registry.yarnpkg.com/three/-/three-0.106.2.tgz#6752d304c470e4df230944ecd45325e7bf79e1f8"
+  integrity sha512-4Tlx43uoxnIaZFW2Bzkd1rXsatvVHEWAZJy8LuE+s6Q8c66ogNnhfq1bHiBKPAnXP230LD11H/ScIZc2LZMviA==
 
 through2@^2.0.0, through2@~2.0.3:
   version "2.0.5"
