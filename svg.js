@@ -8,7 +8,7 @@ import {
   Scene,
 } from 'three';
 
-import {getRenderer, getCamera, getCube} from './scene'
+import {getRenderer, getCamera, getCube, getSVG} from './scene'
 
 let state = {
   shaderTime: 0,
@@ -47,6 +47,11 @@ function animate() {
 
 init(state);
 animate(state);
+getSVG('./frequencies-logo.svg')
+  .then(svg => {
+    state.scene.add(svg)
+    console.log('loaded svg', svg)
+  })
 
 document.getElementById('app')
   .addEventListener('click', () => {
