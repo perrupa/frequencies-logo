@@ -1,13 +1,10 @@
 import {
   BoxGeometry,
-  DoubleSide,
-  Group,
   Mesh,
   MeshBasicMaterial,
-  MeshLambertMaterial,
   PerspectiveCamera,
+  PointLight,
   Scene,
-  ShapeBufferGeometry,
   WebGLRenderer
 } from "three";
 
@@ -17,7 +14,7 @@ import EffectComposer, {
   ShaderPass
 } from "@johh/three-effectcomposer";
 
-import SVGLoader from "three-svg-loader";
+import { getLogo, getCube } from "./actors";
 
 export const getRenderer = (window, selector) => {
   const canvas = document.querySelector(selector);
@@ -38,54 +35,24 @@ export const getCamera = (height, width) => {
   return camera;
 };
 
-export const getCube = () => {
-  const loader = new SVGLoader();
-  const geometry = new BoxGeometry(1, 1, 1);
-  const material = new MeshBasicMaterial({ color: 0x44aa88 });
-  // const material = new MeshLambertMaterial({
-  //   map: loader.load("./frequencies-logo.svg")
-  // });
-
-  return new Mesh(geometry, material);
-};
-
-export const getSVG = url => {
-  const loader = new SVGLoader();
-
-  return new Promise((resolve, reject) => {
-    loader.load(
-      url,
-      ({ paths }) => {
-        const group = paths
-          .map(path => [
-            path,
-            new MeshBasicMaterial({
-              color: path.color,
-              side: DoubleSide,
-              depthWrite: false
-            })
-          ])
-          .map(([path, material]) => {
-            path
-              .toShapes(true)
-              .map(shape => new ShapeBufferGeometry(shape))
-              .map(geometry => new Mesh(geometry, material));
-          })
-          .reduce((meshes, mesh) => meshes.concat(mesh), [])
-          .reduce((group, mesh) => group.add(mesh), new Group());
-
-        resolve(group);
-      },
-      () => {},
-      () => reject()
-    );
-  });
-};
-
 export function getScene() {
   const scene = new Scene();
-  const cube = getCube();
-  scene.add(cube);
+
+  const actors = {
+    // cube: getCube()
+    logo: getLogo()
+  };
+
+  Object.values(actors).forEach(actor => scene.add(actor));
+
+  // Add a point light with #fff color, .7 intensity, and 0 distance
+  var light = new PointLight(0xffffff, 1, 0);
+
+  // Specify the light's position
+  light.position.set(1, 1, 100);
+
+  // Add the light to the scene
+  scene.add(light);
 
   return scene;
 }
@@ -94,10 +61,24 @@ export function getComposer(state) {
   // Building Composer
   const composer = new EffectComposer(state.renderer);
 
+  // Bad shader options
+
+  Object.entries({
+    rollSpeed: 0,
+    speed: 0.1,
+    distortion: 0.4,
+    distortion2: 3.4
+  }).forEach(([key, value]) => (THREE.BadTVShader.uniforms[key].value = value));
+
   // Shaders
   state.shaders = {
     renderPass: new RenderPass(state.scene, state.camera),
     badTVPass: new ShaderPass(THREE.BadTVShader)
+    // badTVPass: new ShaderPass({
+    //   ...THREE.BadTVShader,
+    //   rollSpeed: 0,
+    //   speed: 0.1,
+    // })
     // copyPass: new ShaderPass(CopyShader)
   };
 
