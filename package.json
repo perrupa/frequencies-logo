@@ -13,6 +13,6 @@
   "dependencies": {
     "@johh/three-effectcomposer": "^0.0.7",
     "bad-tv-shader": "felixturner/bad-tv-shader",
-    "three": ">=0.102.0"
+    "three": ">=0.125.0"
   }
 }
