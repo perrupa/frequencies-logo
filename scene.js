@@ -1,10 +1,10 @@
 import {
-  ImageUtils,
   MeshBasicMaterial,
   Mesh,
   WebGLRenderer,
   BoxGeometry,
   PerspectiveCamera,
+  TextureLoader,
 } from "three";
 
 export const getRenderer = (window, selector) => {
@@ -26,12 +26,13 @@ export const getCamera = (height, width) => {
 };
 
 const logoUrl = require("./frequencies.png");
+const loader = new TextureLoader();
 
-export const getCube = () => {
+export const getLogo = () => {
   const geometry = new BoxGeometry(1, 1, 1);
 
   const material = new MeshBasicMaterial({
-    map: ImageUtils.loadTexture(logoUrl),
+    map: loader.load(logoUrl),
     // transparent: true,
     // opacity: 1,
   });

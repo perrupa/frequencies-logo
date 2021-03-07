@@ -1,12 +1,11 @@
 import EffectComposer, {
   RenderPass,
-  CopyShader,
   ShaderPass,
 } from "@johh/three-effectcomposer";
 
 import { Scene } from "three";
 
-import { getRenderer, getCamera, getCube } from "./scene";
+import { getRenderer, getCamera, getLogo } from "./scene";
 
 let state = {
   shaderTime: 0,
@@ -18,14 +17,13 @@ function init() {
   state.camera = getCamera(window.innerHeight, window.innerWidth);
   state.scene = new Scene();
 
-  const cube = getCube();
-  state.scene.add(cube);
+  const logo = getLogo();
+  state.scene.add(logo);
 
   // Shaders
   state.shaders = {
     renderPass: new RenderPass(state.scene, state.camera),
     badTVPass: new ShaderPass(THREE.BadTVShader),
-    copyPass: new ShaderPass(CopyShader),
   };
 
   // Building Composer
