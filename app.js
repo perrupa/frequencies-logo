@@ -2,20 +2,19 @@ import EffectComposer, {
   RenderPass,
   CopyShader,
   ShaderPass,
-} from '@johh/three-effectcomposer';
+} from "@johh/three-effectcomposer";
 
-import {
-  Scene,
-} from 'three';
+import { Scene } from "three";
 
-import {getRenderer, getCamera, getCube} from './scene'
+import { getRenderer, getCamera, getCube } from "./scene";
 
 let state = {
   shaderTime: 0,
+  playing: true,
 };
 
 function init() {
-  state.renderer = getRenderer(window, '#app');
+  state.renderer = getRenderer(window, "#app");
   state.camera = getCamera(window.innerHeight, window.innerWidth);
   state.scene = new Scene();
 
@@ -37,10 +36,10 @@ function init() {
 
 function animate() {
   state.shaderTime += 0.1;
-  state.shaders.badTVPass.uniforms['time'].value =  state.shaderTime;
+  state.shaders.badTVPass.uniforms["time"].value = state.shaderTime;
 
-  if(state.playing) {
-    state.composer.render(0.1)
+  if (state.playing) {
+    state.composer.render(0.1);
     requestAnimationFrame(() => animate(state));
   }
 }
@@ -48,8 +47,7 @@ function animate() {
 init(state);
 animate(state);
 
-document.getElementById('app')
-  .addEventListener('click', () => {
-    state.playing = !state.playing
-    animate()
-  })
+document.getElementById("app").addEventListener("click", () => {
+  state.playing = !state.playing;
+  animate();
+});
