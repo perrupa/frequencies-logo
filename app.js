@@ -24,20 +24,29 @@ function init() {
   state.shaders = {
     renderPass: new RenderPass(state.scene, state.camera),
     badTVPass: new ShaderPass(THREE.BadTVShader),
+    rgbPass: new ShaderPass(THREE.RGBShiftShader),
   };
+
+  // BadTV Config
+  const { uniforms: TVConfig } = state.shaders.badTVPass;
+  TVConfig.speed.value = 0.1;
+  TVConfig.rollSpeed.value = 0;
+  TVConfig.distortion2.value = 0.03;
+  TVConfig.distortion2.value = 0.03;
 
   // Building Composer
   state.composer = new EffectComposer(state.renderer);
   state.composer.addPass(state.shaders.renderPass);
   state.composer.addPass(state.shaders.badTVPass);
+  // state.composer.addPass(state.shaders.rgbPass);
 }
 
 function animate() {
-  state.shaderTime += 0.1;
-  state.shaders.badTVPass.uniforms["time"].value = state.shaderTime;
+  state.shaderTime += 0.03;
+  state.shaders.badTVPass.uniforms.time.value = state.shaderTime;
 
   if (state.playing) {
-    state.composer.render(0.1);
+    state.composer.render();
     requestAnimationFrame(() => animate(state));
   }
 }
